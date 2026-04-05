@@ -737,7 +737,7 @@ export default function App() {
                 </Text>
               </Card>
               {catalogItems.map((item) => (
-                <Card key={item.name}>
+                <Card key={item.id}>
                   <Image
                     source={{ uri: getMerchImage(item) }}
                     style={styles.featureImage}
