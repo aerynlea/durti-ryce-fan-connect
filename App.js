@@ -49,10 +49,14 @@ const siteImages = {
     "https://files.cdn.printful.com/files/c58/c58434acea323ec3e7518507fbdd169b_preview.png",
   merchShirt:
     "https://files.cdn.printful.com/files/aa4/aa4b1c079c913c5b8b605d6ded0f5a2d_preview.png",
+  merchShirtWhite:
+    "https://files.cdn.printful.com/files/066/066fd0d78cbadf40025d0c31721d2866_preview.png",
   merchMug:
-    "https://files.cdn.printful.com/files/603/603cdb03cd77bdfd3b2deae15223fa7d_preview.png",
+    "https://files.cdn.printful.com/files/148/148b4b99d982684814d9ffd5b1e61b2d_preview.png",
   merchHoodie:
     "https://files.cdn.printful.com/files/0d3/0d3cdcd8094820740c4654f4f083cad3_preview.png",
+  merchHoodieWhite:
+    "https://files.cdn.printful.com/files/b69/b69a865fba065548feee3260a19bf478_preview.png",
 };
 
 const socialLinks = [
@@ -60,7 +64,7 @@ const socialLinks = [
   { name: "Band Instagram", url: "https://www.instagram.com/durtiryce/" },
   { name: "Videos", url: siteLinks.videos },
   { name: "Audio", url: siteLinks.audio },
-  { name: "Hunter Lane IG", url: "https://www.instagram.com/robertmusic89/" },
+  { name: "Hunter Lane IG", url: "https://www.instagram.com/hunterlane_music/" },
   { name: "Monique Renee IG", url: "https://www.instagram.com/uniquemojo/" },
   { name: "Contact", url: siteLinks.contact },
 ];
@@ -75,7 +79,7 @@ const shows = [
     time: "8:30 PM",
     note: "Doors open at 7:00 PM",
     venue: "6725 Sunset Boulevard, Hollywood, CA 90028",
-    ticketUrl: "https://www.ticketweb.com/",
+    ticketUrl: "https://www.ticketweb.com/search?q=durti-ryce",
     mapUrl: "https://maps.apple.com/?q=6725+Sunset+Boulevard+Hollywood+CA+90028",
     image: siteImages.catalinaFriday,
   },
@@ -86,7 +90,7 @@ const shows = [
     time: "8:30 PM",
     note: "Second night at Catalina",
     venue: "6725 Sunset Boulevard, Hollywood, CA 90028",
-    ticketUrl: "https://www.ticketweb.com/",
+    ticketUrl: "https://www.ticketweb.com/search?q=durti-ryce",
     mapUrl: "https://maps.apple.com/?q=6725+Sunset+Boulevard+Hollywood+CA+90028",
     image: siteImages.catalinaSaturday,
   },
@@ -97,7 +101,7 @@ const shows = [
     time: "Brunch Show",
     note: "Tickets available now",
     venue: "3005 Old Ranch Parkway, Seal Beach, CA 90740",
-    ticketUrl: "https://www.tix.com/",
+    ticketUrl: "https://www.tix.com/ticket-sales/ThorntonWinery/4672/event/1459462",
     mapUrl: "https://maps.apple.com/?q=3005+Old+Ranch+Parkway+Seal+Beach+CA+90740",
     image: siteImages.spaghettini,
   },
@@ -118,16 +122,16 @@ const releases = [
   {
     title: "New Release Hub",
     description:
-      "Keep fans listening in one place with streaming links, release notes, and audio previews.",
+      "Stay connected to the sound. From fresh releases to signature renditions, experience the music that defines Durti-Ryce all in one place.",
     url: siteLinks.audio,
-    cta: "Open Audio",
+    cta: "Enter the Vibe",
   },
   {
     title: "Performance Videos",
     description:
-      "Feature clips, interviews, tributes, and behind-the-scenes footage in a single video destination.",
+      "Feel the energy of every performance. From crowd-favorite tributes to behind-the-scenes moments, this is where the stage comes alive.",
     url: siteLinks.videos,
-    cta: "Watch Videos",
+    cta: "Watch the Experience",
   },
 ];
 
@@ -141,6 +145,8 @@ const merchItems = [
     badge: "Live store item",
     image: siteImages.merchCap,
     productUrl: "https://durtiryce.com/product/1228390-durti-ryce-nation-limited-edition-structured-twill-cap",
+    colors: ["White"],
+    sizes: ["S/M", "L/XL"],
   },
   {
     id: "womens-vneck",
@@ -150,8 +156,14 @@ const merchItems = [
       "Soft relaxed-fit V-neck tee pulled directly from the current Durti-Ryce merch page.",
     badge: "Live store item",
     image: siteImages.merchShirt,
+    imagesByColor: {
+      "Solid Black Blend": siteImages.merchShirt,
+      "Solid White Blend": siteImages.merchShirtWhite,
+    },
     productUrl:
       "https://durtiryce.com/product/1228840-durti-ryce-nation-limited-edition-women-s-relaxed-v-neck-t-shirt",
+    colors: ["Solid Black Blend", "Solid White Blend"],
+    sizes: ["S", "M", "L", "XL", "2XL"],
   },
   {
     id: "glossy-mug",
@@ -171,7 +183,13 @@ const merchItems = [
       "Eco-friendly relaxed hoodie featured on the current Durti-Ryce merch page.",
     badge: "Live store item",
     image: siteImages.merchHoodie,
+    imagesByColor: {
+      Black: siteImages.merchHoodie,
+      White: siteImages.merchHoodieWhite,
+    },
     productUrl: "https://durtiryce.com/product/1119888-unisex-organic-relaxed-hoodie",
+    colors: ["Black", "White"],
+    sizes: ["S", "M", "L", "XL", "2XL"],
   },
 ];
 
@@ -202,7 +220,7 @@ const artistProfiles = [
   {
     name: "Deron",
     role: "Lead artist and fan connection anchor",
-    bio: "Feature Deron as the central voice of the app experience, tying together live shows, fan club access, and direct audience connection.",
+    bio: "Deron stands at the heart of the Durti-Ryce experience with a voice, presence, and charisma that anchor every performance. As a leading force behind the group’s connection to the audience, he helps turn each show into something personal, powerful, and unforgettable while carrying the spirit of soul into every room.",
     image: deronProfile,
     primaryLabel: "Band Instagram",
     primaryUrl: "https://www.instagram.com/durtiryce/",
@@ -211,18 +229,18 @@ const artistProfiles = [
   },
   {
     name: "Hunter Lane",
-    role: "Featured artist profile",
-    bio: "Use this section to spotlight Hunter Lane's presence in the project, share artist notes, and route fans to social content.",
+    role: "Lead background vocalist and rising artist",
+    bio: "Hunter Lane brings fresh energy, vocal depth, and an undeniable presence to the Durti-Ryce experience. As the lead background vocalist and an up-and-coming artist in his own right, he helps shape the sound behind every performance while building a style that feels modern, soulful, and full of promise.",
     image: hunterLaneProfile,
     primaryLabel: "Instagram",
-    primaryUrl: "https://www.instagram.com/robertmusic89/",
+    primaryUrl: "https://www.instagram.com/hunterlane_music/",
     secondaryLabel: "Videos",
     secondaryUrl: siteLinks.videos,
   },
   {
     name: "Monique Renée",
-    role: "Featured artist profile",
-    bio: "Highlight Monique Renée with artist storytelling, show appearances, and a fast path to social updates and fan engagement.",
+    role: "Featured vocalist with timeless soul",
+    bio: "Monique Renée brings the soul of Teena Marie and the kind of stage presence that leaves a lasting impression every single show. Her performances are rich, expressive, and sensational bringing elegance, power, and deep feeling to the Durti-Ryce sound.",
     image: moniqueReneeProfile,
     primaryLabel: "Instagram",
     primaryUrl: "https://www.instagram.com/uniquemojo/",
@@ -281,6 +299,20 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [cart, setCart] = useState({});
+  const [selectedColors, setSelectedColors] = useState(() =>
+    Object.fromEntries(
+      merchItems
+        .filter((item) => item.colors?.length)
+        .map((item) => [item.id, item.colors[0]]),
+    ),
+  );
+  const [selectedSizes, setSelectedSizes] = useState(() =>
+    Object.fromEntries(
+      merchItems
+        .filter((item) => item.sizes?.length)
+        .map((item) => [item.id, item.sizes[0]]),
+    ),
+  );
 
   const nextShow = useMemo(() => shows[0], []);
 
@@ -296,9 +328,13 @@ export default function App() {
   };
 
   const addToCart = (item) => {
+    const chosenColor = selectedColors[item.id];
+    const chosenSize = selectedSizes[item.id];
+    const cartKey = [item.id, chosenColor, chosenSize].filter(Boolean).join(":");
+
     setCart((currentCart) => ({
       ...currentCart,
-      [item.id]: (currentCart[item.id] ?? 0) + 1,
+      [cartKey]: (currentCart[cartKey] ?? 0) + 1,
     }));
   };
 
@@ -318,18 +354,30 @@ export default function App() {
     });
   };
 
-  const cartItems = merchItems
-    .filter((item) => cart[item.id] > 0)
-    .map((item) => ({
-      ...item,
-      quantity: cart[item.id],
-      lineTotal: cart[item.id] * item.price,
-    }));
+  const cartItems = Object.entries(cart)
+    .map(([cartKey, quantity]) => {
+      const [itemId, selectedColor, selectedSize] = cartKey.split(":");
+      const item = merchItems.find((entry) => entry.id === itemId);
+
+      if (!item) {
+        return null;
+      }
+
+      return {
+        ...item,
+        cartKey,
+        selectedColor,
+        selectedSize,
+        quantity,
+        lineTotal: quantity * item.price,
+      };
+    })
+    .filter(Boolean);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.lineTotal, 0);
 
-  const placeOrder = () => {
+  const checkoutOnStore = () => {
     if (cartCount === 0) {
       Alert.alert("Cart is empty", "Add at least one merch item before checking out.");
       return;
@@ -352,6 +400,11 @@ export default function App() {
         },
       ],
     );
+  };
+
+  const getMerchImage = (item) => {
+    const selectedColor = selectedColors[item.id];
+    return item.imagesByColor?.[selectedColor] ?? item.image;
   };
 
   const submitNewsletter = () => {
@@ -411,8 +464,13 @@ export default function App() {
                 />
                 <Text style={styles.bandName}>Durti-Ryce Fan Connect</Text>
                 <Text style={styles.tagline}>
-                  One home for the fan experience, built around shows, tickets,
-                  music, merch, and direct connection.
+                  Durti-Ryce is a Los Angeles-based R&B collective known for
+                  high-energy live performances, soulful precision, and a stage
+                  presence that turns every show into an experience. Featuring
+                  powerhouse vocalist Deron, the group honors the
+                  timeless spirit of classic R&B while building modern spaces
+                  for connection, celebration, and nostalgia through
+                  Durti-Ryce Nation.
                 </Text>
                 <View style={styles.heroPills}>
                   <InfoPill label="Mobile first" />
@@ -532,8 +590,8 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Tour Dates"
-                title="Find the next show fast"
-                description="Ticket buying should be a one- or two-tap experience with venue details, directions, and VIP messaging close by."
+                title="Be There When the Music Moves"
+                description="Explore upcoming performances, secure your place, and stay close to the moments where Durti-Ryce comes fully alive on stage."
               />
               {shows.map((show) => (
                 <Card key={`${show.title}-${show.date}`}>
@@ -569,8 +627,8 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="New Releases"
-                title="Keep music and video together"
-                description="This section is set up for streaming links, release notes, performance clips, and artist storytelling."
+                title="Where Soul Meets the Stage"
+                description="Step into the sound of Durti-Ryce live performances, timeless R&B energy, and moments that bring the music to life beyond the stage."
               />
               {releases.map((item) => (
                 <Card key={item.title}>
@@ -589,13 +647,13 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Merchandise"
-                title="Promote the products that move"
-                description="Use featured cards for limited drops, bundles, VIP add-ons, and tour-specific merch moments."
+                title="Wear the Experience"
+                description="Step into the world of Durti-Ryce through signature pieces, fan favorites, and limited-edition items designed to keep the music with you beyond the stage."
               />
               {merchItems.map((item) => (
                 <Card key={item.name}>
                   <Image
-                    source={{ uri: item.image }}
+                    source={{ uri: getMerchImage(item) }}
                     style={styles.featureImage}
                     resizeMode="cover"
                   />
@@ -603,6 +661,76 @@ export default function App() {
                   <Text style={styles.cardEyebrow}>{item.badge}</Text>
                   <Text style={styles.cardBody}>${item.price}</Text>
                   <Text style={styles.supportText}>{item.description}</Text>
+                  {item.colors?.length ? (
+                    <View style={styles.optionBlock}>
+                      <Text style={styles.optionLabel}>Color</Text>
+                      <View style={styles.optionChips}>
+                        {item.colors.map((color) => (
+                          <Pressable
+                            key={color}
+                            style={[
+                              styles.optionChip,
+                              selectedColors[item.id] === color
+                                ? styles.optionChipActive
+                                : undefined,
+                            ]}
+                            onPress={() =>
+                              setSelectedColors((current) => ({
+                                ...current,
+                                [item.id]: color,
+                              }))
+                            }
+                          >
+                            <Text
+                              style={[
+                                styles.optionChipText,
+                                selectedColors[item.id] === color
+                                  ? styles.optionChipTextActive
+                                  : undefined,
+                              ]}
+                            >
+                              {color}
+                            </Text>
+                          </Pressable>
+                        ))}
+                      </View>
+                    </View>
+                  ) : null}
+                  {item.sizes?.length ? (
+                    <View style={styles.optionBlock}>
+                      <Text style={styles.optionLabel}>Size</Text>
+                      <View style={styles.optionChips}>
+                        {item.sizes.map((size) => (
+                          <Pressable
+                            key={size}
+                            style={[
+                              styles.optionChip,
+                              selectedSizes[item.id] === size
+                                ? styles.optionChipActive
+                                : undefined,
+                            ]}
+                            onPress={() =>
+                              setSelectedSizes((current) => ({
+                                ...current,
+                                [item.id]: size,
+                              }))
+                            }
+                          >
+                            <Text
+                              style={[
+                                styles.optionChipText,
+                                selectedSizes[item.id] === size
+                                  ? styles.optionChipTextActive
+                                  : undefined,
+                              ]}
+                            >
+                              {size}
+                            </Text>
+                          </Pressable>
+                        ))}
+                      </View>
+                    </View>
+                  ) : null}
                   <View style={styles.inlineActions}>
                     <ActionButton
                       label="Add to Cart"
@@ -617,9 +745,10 @@ export default function App() {
                 </Card>
               ))}
               <Card accent>
+                <Text style={styles.cartEyebrow}>Ready to buy?</Text>
                 <Text style={styles.cardTitle}>Cart</Text>
                 <Text style={styles.cardBody}>
-                  Review merch selections and simulate checkout inside the app.
+                  Review merch selections, then continue to the live store checkout.
                 </Text>
                 {cartItems.length === 0 && (
                   <Text style={styles.supportText}>
@@ -627,9 +756,19 @@ export default function App() {
                   </Text>
                 )}
                 {cartItems.map((item) => (
-                  <View key={item.id} style={styles.cartRow}>
+                  <View key={item.cartKey} style={styles.cartRow}>
                     <View style={styles.cartCopy}>
                       <Text style={styles.cartTitle}>{item.name}</Text>
+                      {item.selectedColor ? (
+                        <Text style={styles.supportText}>
+                          Color: {item.selectedColor}
+                        </Text>
+                      ) : null}
+                      {item.selectedSize ? (
+                        <Text style={styles.supportText}>
+                          Size: {item.selectedSize}
+                        </Text>
+                      ) : null}
                       <Text style={styles.supportText}>
                         {item.quantity} x ${item.price} = ${item.lineTotal}
                       </Text>
@@ -637,14 +776,14 @@ export default function App() {
                     <View style={styles.quantityControls}>
                       <Pressable
                         style={styles.quantityButton}
-                        onPress={() => updateCartItem(item.id, -1)}
+                        onPress={() => updateCartItem(item.cartKey, -1)}
                       >
                         <Text style={styles.quantityButtonText}>-</Text>
                       </Pressable>
                       <Text style={styles.quantityValue}>{item.quantity}</Text>
                       <Pressable
                         style={styles.quantityButton}
-                        onPress={() => updateCartItem(item.id, 1)}
+                        onPress={() => updateCartItem(item.cartKey, 1)}
                       >
                         <Text style={styles.quantityButtonText}>+</Text>
                       </Pressable>
@@ -655,12 +794,10 @@ export default function App() {
                   <Text style={styles.cartSummaryText}>Items: {cartCount}</Text>
                   <Text style={styles.cartSummaryText}>Total: ${cartTotal}</Text>
                 </View>
-                <View style={styles.inlineActions}>
-                  <ActionButton label="Place Demo Order" onPress={placeOrder} />
+                <View style={styles.checkoutWrap}>
                   <ActionButton
-                    label="Open Live Store"
-                    onPress={() => openLink(siteLinks.merch)}
-                    secondary
+                    label="Continue to Store"
+                    onPress={checkoutOnStore}
                   />
                 </View>
               </Card>
@@ -671,8 +808,8 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Artist Profiles"
-                title="Meet the featured artists"
-                description="This tab gives fans a dedicated place to connect with Deron, Hunter Lane, and Monique Renée without hunting through other sections."
+                title="Meet the Voices Behind the Experience"
+                description="Discover the artists who shape the sound, energy, and spirit of Durti-Ryce from center-stage presence to unforgettable vocal moments."
               />
               {artistProfiles.map((artist) => (
                 <Card key={artist.name}>
@@ -708,17 +845,18 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Durti-Ryce Nation"
-                title="Build loyalty with tiers and perks"
-                description="This MVP points fans to membership tiers now and leaves room for future members-only content, VIP access, and rewards."
+                title="Join the Inner Circle"
+                description="Exclusive access, deeper connection, and fan experiences designed for the people who move with the music."
               />
               <Card accent>
-                <Text style={styles.cardTitle}>Fan club landing page</Text>
+                <Text style={styles.cardTitle}>Durti-Ryce Nation</Text>
                 <Text style={styles.cardBody}>
-                  Start with one clear path into the membership experience, then
-                  layer in presales, contests, and member-only media later.
+                  Step into the official fan community for priority access,
+                  exclusive updates, special experiences, and a deeper
+                  connection to the world of Durti-Ryce.
                 </Text>
                 <ActionButton
-                  label="Open Fan Club"
+                  label="Enter Fan Club"
                   onPress={() => openLink(siteLinks.fanClub)}
                 />
               </Card>
@@ -739,8 +877,8 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="More"
-                title="Reach every fan touchpoint"
-                description="This area covers the newsletter, social hub, video, booking, and support so the app can grow without crowding the main navigation."
+                title="Go Deeper Into the Experience"
+                description="From booking and direct updates to social connection and behind-the-scenes access, this is where the wider world of Durti-Ryce opens up."
               />
               <Card>
                 <Text style={styles.cardTitle}>Newsletter and fan data</Text>
@@ -994,6 +1132,41 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginBottom: 10,
   },
+  optionBlock: {
+    marginBottom: 12,
+  },
+  optionLabel: {
+    color: "#f7c98d",
+    fontSize: 13,
+    fontWeight: "800",
+    marginBottom: 8,
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+  },
+  optionChips: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  optionChip: {
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "#6e5050",
+    backgroundColor: "#241720",
+  },
+  optionChipActive: {
+    backgroundColor: "#df8d42",
+    borderColor: "#df8d42",
+  },
+  optionChipText: {
+    color: "#f7eddf",
+    fontWeight: "700",
+  },
+  optionChipTextActive: {
+    color: "#1b0f0c",
+  },
   cartRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -1011,6 +1184,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "800",
     marginBottom: 4,
+  },
+  cartEyebrow: {
+    color: "#f7c98d",
+    fontWeight: "800",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    marginBottom: 8,
   },
   quantityControls: {
     flexDirection: "row",
@@ -1049,6 +1229,9 @@ const styles = StyleSheet.create({
     color: "#f7eddf",
     fontSize: 16,
     fontWeight: "800",
+  },
+  checkoutWrap: {
+    marginTop: 4,
   },
   linkGrid: {
     flexDirection: "row",
