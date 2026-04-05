@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Image,
@@ -12,10 +12,15 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { buildDefaultSelections, fetchMerchCatalog } from "./lib/merch";
+import { isSupabaseConfigured } from "./lib/supabase";
 
-const hunterLaneProfile = require("./assets/hunter-lane-profile.png");
-const moniqueReneeProfile = require("./assets/monique-renee-profile.png");
-const deronProfile = require("./assets/deron-profile.png");
+const hunterLaneProfile =
+  "https://images.zoogletools.com/s:bzglfiles/u/748996/df709ad56c92e5827cf08085780af959f8aafc4e/original/durti-ryce-copper-family-promo-1-1.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
+const moniqueReneeProfile =
+  "https://images.zoogletools.com/s:bzglfiles/u/748996/519f0f5c3dfc8180d6c4a23772a8f9414fe02350/original/dr-promo-monique-renee-45.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
+const deronProfile =
+  "https://images.zoogletools.com/s:bzglfiles/u/748996/f64b5f3bc8c8545425fa84bf6e085ddac3194b40/original/durti-ryce-ft-deronjubu.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
 
 const siteLinks = {
   home: "https://durtiryce.com/",
@@ -135,7 +140,7 @@ const releases = [
   },
 ];
 
-const merchItems = [
+const fallbackMerchItems = [
   {
     id: "hoodie-black",
     name: "Durti-Ryce Nation - Limited Edition Hoodie",
@@ -414,23 +419,56 @@ export default function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
-  const [cart, setCart] = useState({});
-  const [selectedColors, setSelectedColors] = useState(() =>
-    Object.fromEntries(
-      merchItems
-        .filter((item) => item.colors?.length)
-        .map((item) => [item.id, item.colors[0]]),
-    ),
+  const [catalogItems, setCatalogItems] = useState(fallbackMerchItems);
+  const [merchSyncState, setMerchSyncState] = useState(
+    isSupabaseConfigured ? "Connecting to Supabase catalog..." : "Using built-in merch catalog",
   );
-  const [selectedSizes, setSelectedSizes] = useState(() =>
-    Object.fromEntries(
-      merchItems
-        .filter((item) => item.sizes?.length)
-        .map((item) => [item.id, item.sizes[0]]),
-    ),
+  const [selectedColors, setSelectedColors] = useState(
+    () => buildDefaultSelections(fallbackMerchItems).colors,
+  );
+  const [selectedSizes, setSelectedSizes] = useState(
+    () => buildDefaultSelections(fallbackMerchItems).sizes,
   );
 
   const nextShow = useMemo(() => shows[0], []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCatalog() {
+      if (!isSupabaseConfigured) {
+        return;
+      }
+
+      try {
+        const remoteItems = await fetchMerchCatalog();
+
+        if (!isMounted || !remoteItems.length) {
+          if (isMounted) {
+            setMerchSyncState("Supabase is connected, but no products have been synced yet");
+          }
+          return;
+        }
+
+        const defaults = buildDefaultSelections(remoteItems);
+
+        setCatalogItems(remoteItems);
+        setSelectedColors((current) => ({ ...defaults.colors, ...current }));
+        setSelectedSizes((current) => ({ ...defaults.sizes, ...current }));
+        setMerchSyncState("Merch is now loading from your Supabase catalog");
+      } catch (error) {
+        if (isMounted) {
+          setMerchSyncState("Supabase connection is ready, but the app is still using fallback merch");
+        }
+      }
+    }
+
+    loadCatalog();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const openLink = async (url) => {
     const supported = await Linking.canOpenURL(url);
@@ -441,66 +479,6 @@ export default function App() {
     }
 
     await Linking.openURL(url);
-  };
-
-  const addToCart = (item) => {
-    const chosenColor = selectedColors[item.id];
-    const chosenSize = selectedSizes[item.id];
-    const cartKey = [item.id, chosenColor, chosenSize].filter(Boolean).join(":");
-
-    setCart((currentCart) => ({
-      ...currentCart,
-      [cartKey]: (currentCart[cartKey] ?? 0) + 1,
-    }));
-  };
-
-  const updateCartItem = (itemId, delta) => {
-    setCart((currentCart) => {
-      const nextQuantity = (currentCart[itemId] ?? 0) + delta;
-
-      if (nextQuantity <= 0) {
-        const { [itemId]: _removed, ...rest } = currentCart;
-        return rest;
-      }
-
-      return {
-        ...currentCart,
-        [itemId]: nextQuantity,
-      };
-    });
-  };
-
-  const cartItems = Object.entries(cart)
-    .map(([cartKey, quantity]) => {
-      const [itemId, selectedColor, selectedSize] = cartKey.split(":");
-      const item = merchItems.find((entry) => entry.id === itemId);
-
-      if (!item) {
-        return null;
-      }
-
-      return {
-        ...item,
-        cartKey,
-        selectedColor,
-        selectedSize,
-        quantity,
-        lineTotal: quantity * item.price,
-      };
-    })
-    .filter(Boolean);
-
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const cartTotal = cartItems.reduce((sum, item) => sum + item.lineTotal, 0);
-
-  const checkoutOnStore = () => {
-    if (cartCount === 0) {
-      Alert.alert("Cart is empty", "Add at least one merch item before checking out.");
-      return;
-    }
-
-    setCart({});
-    openLink(siteLinks.merch);
   };
 
   const getMerchImage = (item) => {
@@ -751,7 +729,14 @@ export default function App() {
                 title="Wear the Experience"
                 description="Step into the world of Durti-Ryce through signature pieces, fan favorites, and limited-edition items designed to keep the music with you beyond the stage."
               />
-              {merchItems.map((item) => (
+              <Card>
+                <Text style={styles.cardEyebrow}>Catalog Status</Text>
+                <Text style={styles.cardBody}>{merchSyncState}</Text>
+                <Text style={styles.supportText}>
+                  For the most reliable experience, fans choose an item here and finish their purchase securely on the live Durti-Ryce store.
+                </Text>
+              </Card>
+              {catalogItems.map((item) => (
                 <Card key={item.name}>
                   <Image
                     source={{ uri: getMerchImage(item) }}
@@ -795,6 +780,9 @@ export default function App() {
                           </Pressable>
                         ))}
                       </View>
+                      <Text style={styles.supportText}>
+                        Final color selection is confirmed on the secure store page.
+                      </Text>
                     </View>
                   ) : null}
                   {item.sizes?.length ? (
@@ -830,77 +818,27 @@ export default function App() {
                           </Pressable>
                         ))}
                       </View>
+                      <Text style={styles.supportText}>
+                        Final size selection is confirmed on the secure store page.
+                      </Text>
                     </View>
                   ) : null}
-                  <View style={styles.inlineActions}>
-                    <ActionButton
-                      label="Add to Cart"
-                      onPress={() => addToCart(item)}
-                    />
-                    <ActionButton
-                      label="View Details"
-                      onPress={() => openLink(item.productUrl)}
-                      secondary
-                    />
-                  </View>
+                  <ActionButton
+                    label="Buy Now"
+                    onPress={() => openLink(item.productUrl ?? siteLinks.merch)}
+                  />
                 </Card>
               ))}
               <Card accent>
-                <Text style={styles.cartEyebrow}>Ready to buy?</Text>
-                <Text style={styles.cardTitle}>Cart</Text>
+                <Text style={styles.cartEyebrow}>Easy Checkout</Text>
+                <Text style={styles.cardTitle}>Simple and secure</Text>
                 <Text style={styles.cardBody}>
-                  Review merch selections, then continue to the live store checkout.
+                  Each merch item opens its matching store page so fans can complete checkout with the fewest possible steps.
                 </Text>
-                {cartItems.length === 0 && (
-                  <Text style={styles.supportText}>
-                    Your cart is empty right now. Add an item above to get started.
-                  </Text>
-                )}
-                {cartItems.map((item) => (
-                  <View key={item.cartKey} style={styles.cartRow}>
-                    <View style={styles.cartCopy}>
-                      <Text style={styles.cartTitle}>{item.name}</Text>
-                      {item.selectedColor ? (
-                        <Text style={styles.supportText}>
-                          Color: {item.selectedColor}
-                        </Text>
-                      ) : null}
-                      {item.selectedSize ? (
-                        <Text style={styles.supportText}>
-                          Size: {item.selectedSize}
-                        </Text>
-                      ) : null}
-                      <Text style={styles.supportText}>
-                        {item.quantity} x ${item.price} = ${item.lineTotal}
-                      </Text>
-                    </View>
-                    <View style={styles.quantityControls}>
-                      <Pressable
-                        style={styles.quantityButton}
-                        onPress={() => updateCartItem(item.cartKey, -1)}
-                      >
-                        <Text style={styles.quantityButtonText}>-</Text>
-                      </Pressable>
-                      <Text style={styles.quantityValue}>{item.quantity}</Text>
-                      <Pressable
-                        style={styles.quantityButton}
-                        onPress={() => updateCartItem(item.cartKey, 1)}
-                      >
-                        <Text style={styles.quantityButtonText}>+</Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                ))}
-                <View style={styles.cartSummary}>
-                  <Text style={styles.cartSummaryText}>Items: {cartCount}</Text>
-                  <Text style={styles.cartSummaryText}>Total: ${cartTotal}</Text>
-                </View>
-                <View style={styles.checkoutWrap}>
-                  <ActionButton
-                    label="Check-out"
-                    onPress={checkoutOnStore}
-                  />
-                </View>
+                <ActionButton
+                  label="Open Full Merch Store"
+                  onPress={() => openLink(siteLinks.merch)}
+                />
               </Card>
             </View>
           )}
