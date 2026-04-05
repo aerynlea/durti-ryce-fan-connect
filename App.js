@@ -383,23 +383,8 @@ export default function App() {
       return;
     }
 
-    Alert.alert(
-      "Continue to checkout",
-      `Your cart has ${cartCount} item${cartCount === 1 ? "" : "s"} totaling $${cartTotal}. The next step will open the live Durti-Ryce merch store for final checkout.`,
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Open Store",
-          onPress: () => {
-            setCart({});
-            openLink(siteLinks.merch);
-          },
-        },
-      ],
-    );
+    setCart({});
+    openLink(siteLinks.merch);
   };
 
   const getMerchImage = (item) => {
@@ -796,7 +781,7 @@ export default function App() {
                 </View>
                 <View style={styles.checkoutWrap}>
                   <ActionButton
-                    label="Continue to Store"
+                    label="Check-out"
                     onPress={checkoutOnStore}
                   />
                 </View>
