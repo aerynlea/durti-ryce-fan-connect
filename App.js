@@ -137,6 +137,78 @@ const releases = [
 
 const merchItems = [
   {
+    id: "hoodie-black",
+    name: "Durti-Ryce Nation - Limited Edition Hoodie",
+    price: 80.0,
+    description:
+      "Heavyweight signature hoodie from the live Durti-Ryce store.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/503/5031b695ac648859c3a5567678f43e7e_preview.png",
+    productUrl: "https://durtiryce.com/product/1227977-durti-ryce-nation-limited-edition-hoodie",
+  },
+  {
+    id: "joggers-black",
+    name: "Durti-Ryce Nation - Limited Edition Unisex Joggers",
+    price: 45.0,
+    description:
+      "Everyday joggers with a live-store Durti-Ryce graphic finish.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/929/929ce7c6fad08de9f6329e8c18dc0b94_preview.png",
+    productUrl: "https://durtiryce.com/product/1228361-durti-ryce-nation-limited-edition-unisex-joggers",
+  },
+  {
+    id: "sweatsuit-set",
+    name: "Durti-Ryce Nation Limited Edition Sweatsuit Set",
+    price: 110.0,
+    description:
+      "A full sweatsuit set from the current live merch collection.",
+    badge: "Live store item",
+    image:
+      "https://images.zoogletools.com/s:bzglfiles/u/748996/d46dbb44dfa703c2c519ee1587e112f9ac10ecd2/original/beige-minimalist-mood-photo-collage-1-x-1-in-1-x-1-in-2.png/!!/b%3AW1sicmVzaXplIixbMTIwMCxudWxsLHsid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlLCJmaXQiOiJvdXRzaWRlIn1dXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png",
+    productUrl: "https://durtiryce.com/product/1228457-durti-ryce-nation-limited-edition-sweatsuit-set",
+  },
+  {
+    id: "crop-hoodie",
+    name: "Durti-Ryce Nation - Limited Edition - Crop Hoodie",
+    price: 55.0,
+    description:
+      "A cropped hoodie option from the live collection with a softer fashion-forward fit.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/ef3/ef3156f09aab7bce9037a881d5621797_preview.png",
+    productUrl: "https://durtiryce.com/product/1227897-durti-ryce-nation-limited-edition-crop-hoodie",
+  },
+  {
+    id: "joggers-pink",
+    name: "Durti-Ryce Nation - Limited Edition Unisex Joggers (Pink)",
+    price: 45.0,
+    description:
+      "A pink jogger option from the current live merch collection.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/1e4/1e4db676f7f298f68c1fb4762d082556_preview.png",
+    productUrl: "https://durtiryce.com/product/1228389-durti-ryce-nation-limited-edition-unisex-joggers-pink",
+  },
+  {
+    id: "crop-sweatsuit-set",
+    name: "Durti-Ryce Nation Limited Edition Crop Sweatsuit Set",
+    price: 90.0,
+    description:
+      "A coordinated crop sweatsuit set from the live store.",
+    badge: "Live store item",
+    image:
+      "https://images.zoogletools.com/s:bzglfiles/u/748996/0bf5cdc985d9d3dfece9d49da25b06bdb38994a4/original/beige-minimalist-mood-photo-collage-1-x-1-in-1-x-1-in-3.png/!!/b%3AW1sicmVzaXplIixbMTIwMCxudWxsLHsid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlLCJmaXQiOiJvdXRzaWRlIn1dXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png",
+    productUrl: "https://durtiryce.com/product/1228375-durti-ryce-nation-limited-edition-crop-sweatsuit-set",
+  },
+  {
+    id: "crewneck-sweatshirt",
+    name: "Durti-Ryce Nation - Limited Edition - Embroidered  Crew Neck Unisex Sweatshirt",
+    price: 50.0,
+    description:
+      "An embroidered crew neck sweatshirt from the current Durti-Ryce lineup.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/04b/04bc4dd2c47728758b0c109b28a13a90_preview.png",
+    productUrl: "https://durtiryce.com/product/1227898-durti-ryce-nation-limited-edition-embroidered-crew-neck-unisex-sweatshirt",
+  },
+  {
     id: "flexfit-cap-black",
     name: "Durti-Ryce Nation - Limited Edition Structured Twill Cap",
     price: 35.0,
@@ -166,30 +238,74 @@ const merchItems = [
     sizes: ["S", "M", "L", "XL", "2XL"],
   },
   {
-    id: "glossy-mug",
-    name: "Black Glossy Mug",
-    price: 23.49,
+    id: "womens-vneck-alt",
+    name: "Durti-Ryce Nation - Limited Edition Women’s relaxed v-neck t-shirt",
+    price: 35.0,
     description:
-      "Glossy ceramic mug available now from the live merch catalog.",
+      "A second live-store colorway of the women’s relaxed v-neck t-shirt.",
     badge: "Live store item",
-    image: siteImages.merchMug,
-    productUrl: "https://durtiryce.com/product/1120431-black-glossy-mug",
+    image: "https://files.cdn.printful.com/files/dc5/dc5f56fb4e651fba9358bb949fc3d0b9_preview.png",
+    productUrl: "https://durtiryce.com/product/1228839-durti-ryce-nation-limited-edition-women-s-relaxed-v-neck-t-shirt",
   },
   {
-    id: "organic-hoodie",
-    name: "Unisex Organic Relaxed Hoodie",
-    price: 40.34,
+    id: "bucket-hat",
+    name: "Durti-Ryce Nation - Limited Edition Bucket Hat",
+    price: 30.0,
     description:
-      "Eco-friendly relaxed hoodie featured on the current Durti-Ryce merch page.",
+      "A limited-edition bucket hat from the live store collection.",
     badge: "Live store item",
-    image: siteImages.merchHoodie,
-    imagesByColor: {
-      Black: siteImages.merchHoodie,
-      White: siteImages.merchHoodieWhite,
-    },
-    productUrl: "https://durtiryce.com/product/1119888-unisex-organic-relaxed-hoodie",
-    colors: ["Black", "White"],
-    sizes: ["S", "M", "L", "XL", "2XL"],
+    image: "https://files.cdn.printful.com/files/845/84597c5ef026ba799a514c4fc44bb197_preview.png",
+    productUrl: "https://durtiryce.com/product/1227909-durti-ryce-nation-limited-edition-bucket-hat",
+  },
+  {
+    id: "visor-flexfit",
+    name: "Durti-Ryce Nation - Limited Edition Visor | Flexfit 8110",
+    price: 35.0,
+    description:
+      "Flexfit visor option from the current live merch page.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/f95/f95061c9699ef6b6be8544efd395f2b9_preview.png",
+    productUrl: "https://durtiryce.com/product/1227900-durti-ryce-nation-limited-edition-visor-flexfit-8110",
+  },
+  {
+    id: "visor",
+    name: "Durti-Ryce Nation - Limited Edition Visor",
+    price: 35.0,
+    description:
+      "Classic visor option from the current Durti-Ryce live store.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/067/06746a9b78cff6160979598ba338f81d_preview.png",
+    productUrl: "https://durtiryce.com/product/1228521-durti-ryce-nation-limited-edition-visor",
+  },
+  {
+    id: "basic-pillow",
+    name: "Durti-Ryce Nation - Limited Edition Basic Pillow",
+    price: 25.0,
+    description:
+      "A home decor option from the live merch catalog.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/83e/83e9535b4aee0195a047833c90a64772_preview.png",
+    productUrl: "https://durtiryce.com/product/1046984-durti-ryce-nation-limited-edition-basic-pillow",
+  },
+  {
+    id: "tumbler",
+    name: "Durti-Ryce Nation - Limited Edition Insulated tumbler with a straw",
+    price: 35.0,
+    description:
+      "Insulated tumbler with straw from the current live store collection.",
+    badge: "Live store item",
+    image: "https://files.cdn.printful.com/files/0a1/0a17b526c76f886ff70e7432ca353310_preview.png",
+    productUrl: "https://durtiryce.com/product/1227907-durti-ryce-nation-limited-edition-insulated-tumbler-with-a-straw",
+  },
+  {
+    id: "glossy-mug",
+    name: "Durti-Ryce Nation - Limited Edition Black Glossy Mug",
+    price: 15.0,
+    description:
+      "A glossy ceramic mug from the live store with Durti-Ryce branding.",
+    badge: "Live store item",
+    image: siteImages.merchMug,
+    productUrl: "https://durtiryce.com/product/1228511-durti-ryce-nation-limited-edition-black-glossy-mug",
   },
 ];
 
