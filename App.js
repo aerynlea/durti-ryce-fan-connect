@@ -15,19 +15,20 @@ import {
 import { buildDefaultSelections, fetchMerchCatalog } from "./lib/merch";
 import { isSupabaseConfigured } from "./lib/supabase";
 
-const hunterLaneProfile =
-  "https://images.zoogletools.com/s:bzglfiles/u/748996/df709ad56c92e5827cf08085780af959f8aafc4e/original/durti-ryce-copper-family-promo-1-1.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
-const moniqueReneeProfile =
-  "https://images.zoogletools.com/s:bzglfiles/u/748996/519f0f5c3dfc8180d6c4a23772a8f9414fe02350/original/dr-promo-monique-renee-45.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
-const deronProfile =
-  "https://images.zoogletools.com/s:bzglfiles/u/748996/f64b5f3bc8c8545425fa84bf6e085ddac3194b40/original/durti-ryce-ft-deronjubu.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png";
+const hunterLaneProfile = require("./assets/hunter-lane-profile.png");
+const moniqueReneeProfile = require("./assets/monique-renee-profile.png");
+const deronProfile = require("./assets/deron-profile.png");
+const durtiCocktailCruise = require("./assets/durti-cocktail-lounge-cruise.png");
+const durtiCocktailCruisePhotos = require("./assets/dcl-cruise-vol-1-photos.png");
+const durtiRyceHomeHero = require("./assets/durti-ryce-home-hero.png");
 
 const siteLinks = {
   home: "https://durtiryce.com/",
   merch: "https://durtiryce.com/merch/",
   videos: "https://durtiryce.com/videos/",
   booking: "https://durtiryce.com/event-booking/",
-  fanClub: "https://durtiryce.com/fan-club-durti-ryce-nation/",
+  fanClub:
+    "https://durtiryce.com/go/members/new?return_url=https://durtiryce.com/fan-club-durti-ryce-nation",
   bronze: "https://durtiryce.com/bronze-member/",
   silver: "https://durtiryce.com/silver-member/",
   gold: "https://durtiryce.com/gold-member/",
@@ -35,11 +36,13 @@ const siteLinks = {
   askDeron: "https://durtiryce.com/ask-deron/",
   audio: "https://durtiryce.com/audio/",
   contact: "https://durtiryce.com/contact/",
+  cruise: "https://durtiryce.com/cruise-registration",
+  cruisePhotos: "https://durtiryce.com/dcl-cruise-vol-1-photos",
 };
 
 const siteImages = {
   hero:
-    "https://images.zoogletools.com/s:bzglfiles/u/748996/df709ad56c92e5827cf08085780af959f8aafc4e/original/durti-ryce-copper-family-promo-1-1.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png",
+    durtiRyceHomeHero,
   merch:
     "https://images.zoogletools.com/s:bzglfiles/u/748996/e02e5453f2ea73d9f0aeeec017eef21a80f0b3fd/original/durti-ryce-nation-limited-edition-sale-1.png/!!/b%3AW1sicmVzaXplIiwxMDAwXSxbIm1heCJdLFsid2UiXV0%3D/meta%3AeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ%3D%3D.png",
   catalinaFriday:
@@ -74,7 +77,7 @@ const socialLinks = [
   { name: "Contact", url: siteLinks.contact },
 ];
 
-const tabs = ["Home", "Shows", "Music", "Merch", "Artists", "Fan Club", "More"];
+const tabs = ["Home", "Shows", "Music", "Merch", "Artists", "Fandom", "More"];
 
 const shows = [
   {
@@ -135,7 +138,7 @@ const releases = [
     title: "Performance Videos",
     description:
       "Feel the energy of every performance. From crowd-favorite tributes to behind-the-scenes moments, this is where the stage comes alive.",
-    url: siteLinks.videos,
+    url: "https://www.youtube.com/@Durti-Ryce/videos",
     cta: "Watch the Experience",
   },
 ];
@@ -361,7 +364,7 @@ const artistProfiles = [
   {
     name: "Monique Renée",
     role: "Featured vocalist with timeless soul",
-    bio: "Monique Renée brings the soul of Teena Marie and the kind of stage presence that leaves a lasting impression every single show. Her performances are rich, expressive, and sensational bringing elegance, power, and deep feeling to the Durti-Ryce sound.",
+    bio: "Monique Renée brings the soul of Teena Marie and the kind of stage presence that leaves a lasting impression every single show. Her performances are rich, expressive, and sensational bringing elegance, power, and deep feeling to the Iron Bar Entertainment sound.",
     image: moniqueReneeProfile,
     primaryLabel: "Instagram",
     primaryUrl: "https://www.instagram.com/uniquemojo/",
@@ -537,7 +540,11 @@ export default function App() {
             <View style={styles.section}>
               <View style={styles.heroCard}>
                 <Image
-                  source={{ uri: siteImages.hero }}
+                  source={
+                    typeof siteImages.hero === "string"
+                      ? { uri: siteImages.hero }
+                      : siteImages.hero
+                  }
                   style={styles.heroImage}
                   resizeMode="cover"
                 />
@@ -707,7 +714,7 @@ export default function App() {
               <SectionHeader
                 eyebrow="New Releases"
                 title="Where Soul Meets the Stage"
-                description="Step into the sound of Durti-Ryce live performances, timeless R&B energy, and moments that bring the music to life beyond the stage."
+                description="Step into the sound of Durti-Ryce live performances, timeless R&B energy, and moments that bring the music to life beyond the stage. Some releases may stream for free, while others may require purchase or platform login."
               />
               {releases.map((item) => (
                 <Card key={item.title}>
@@ -729,13 +736,6 @@ export default function App() {
                 title="Wear the Experience"
                 description="Step into the world of Durti-Ryce through signature pieces, fan favorites, and limited-edition items designed to keep the music with you beyond the stage."
               />
-              <Card>
-                <Text style={styles.cardEyebrow}>Catalog Status</Text>
-                <Text style={styles.cardBody}>{merchSyncState}</Text>
-                <Text style={styles.supportText}>
-                  For the most reliable experience, fans choose an item here and finish their purchase securely on the live Durti-Ryce store.
-                </Text>
-              </Card>
               {catalogItems.map((item) => (
                 <Card key={item.id}>
                   <Image
@@ -880,7 +880,7 @@ export default function App() {
             </View>
           )}
 
-          {activeTab === "Fan Club" && (
+          {activeTab === "Fandom" && (
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Durti-Ryce Nation"
@@ -919,6 +919,50 @@ export default function App() {
                 title="Go Deeper Into the Experience"
                 description="From booking and direct updates to social connection and behind-the-scenes access, this is where the wider world of Durti-Ryce opens up."
               />
+              <Card>
+                <Image
+                  source={durtiCocktailCruise}
+                  style={styles.featureImage}
+                  resizeMode="cover"
+                />
+                <Text style={styles.cardEyebrow}>Special Event</Text>
+                <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Experience</Text>
+                <Text style={styles.cardBody}>
+                  Concert at Sea Vol. II • June 11-14, 2027
+                </Text>
+                <Text style={styles.supportText}>
+                  Sail aboard the Ovation of the Seas from San Pedro, CA to Ensenada, Mexico.
+                </Text>
+                <Text style={styles.supportText}>
+                  Live performances ft. Deron, Monique Renee, Hunter Lane, a special surprise guest, DJ Shell, the signature Durti Cocktail Lounge experience, and VIP moments hosted by Deron.
+                </Text>
+                <Text style={styles.supportText}>
+                  Game room experience includes Spades, Bid Whist, Dominoes, line dancing, stepping, and VIP recognition moments.
+                </Text>
+                <Text style={styles.supportText}>
+                  Deposit: $100 per person. Final payment due March 1, 2027. Limited cabins available.
+                </Text>
+                <ActionButton
+                  label="Reserve Your Cabin"
+                  onPress={() => openLink(siteLinks.cruise)}
+                />
+              </Card>
+              <Card>
+                <Image
+                  source={durtiCocktailCruisePhotos}
+                  style={styles.featureImage}
+                  resizeMode="cover"
+                />
+                <Text style={styles.cardEyebrow}>Cruise Photos</Text>
+                <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Vol. I Photos</Text>
+                <Text style={styles.cardBody}>
+                  Revisit the first Durti Cocktail Lounge Cruise through photo highlights from the experience at sea.
+                </Text>
+                <ActionButton
+                  label="View Cruise Photos"
+                  onPress={() => openLink(siteLinks.cruisePhotos)}
+                />
+              </Card>
               <Card>
                 <Text style={styles.cardTitle}>Newsletter and fan data</Text>
                 <Text style={styles.cardBody}>
