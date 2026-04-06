@@ -919,17 +919,28 @@ export default function App() {
                 title="Go Deeper Into the Experience"
                 description="From booking and direct updates to social connection and behind-the-scenes access, this is where the wider world of Durti-Ryce opens up."
               />
-              <Card>
+              <View style={styles.cruiseCard}>
                 <Image
                   source={durtiCocktailCruise}
-                  style={[styles.featureImage, styles.cruiseFeatureImage]}
+                  style={styles.cruiseHeroImage}
                   resizeMode="contain"
                 />
+                <View style={styles.cruiseContent}>
                 <Text style={styles.cardEyebrow}>Special Event</Text>
                 <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Experience</Text>
                 <Text style={styles.cardBody}>
                   Concert at Sea Vol. II • June 11-14, 2027
                 </Text>
+                <Text style={styles.cruiseDescription}>
+                  Step into an elevated cruise experience built around soulful live performances, signature moments, and the unmistakable Durti-Ryce atmosphere at sea.
+                </Text>
+                <View style={styles.cruiseMetaRow}>
+                  <Text style={styles.cruiseMetaText}>Live Music</Text>
+                  <Text style={styles.cruiseMetaDot}>•</Text>
+                  <Text style={styles.cruiseMetaText}>Cocktail Lounge Vibes</Text>
+                  <Text style={styles.cruiseMetaDot}>•</Text>
+                  <Text style={styles.cruiseMetaText}>Premium Experience</Text>
+                </View>
                 <Text style={styles.supportText}>
                   Sail aboard the Ovation of the Seas from San Pedro, CA to Ensenada, Mexico.
                 </Text>
@@ -946,7 +957,8 @@ export default function App() {
                   label="Reserve Your Cabin"
                   onPress={() => openLink(siteLinks.cruise)}
                 />
-              </Card>
+                </View>
+              </View>
               <Card>
                 <Image
                   source={durtiCocktailCruisePhotos}
@@ -1123,6 +1135,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3a2a34",
   },
+  cruiseCard: {
+    borderRadius: 28,
+    overflow: "hidden",
+    backgroundColor: "#111111",
+    borderWidth: 1,
+    borderColor: "rgba(223, 141, 66, 0.22)",
+  },
   featureImage: {
     width: "100%",
     height: 180,
@@ -1130,8 +1149,36 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     backgroundColor: "#241720",
   },
-  cruiseFeatureImage: {
-    padding: 12,
+  cruiseHeroImage: {
+    width: "100%",
+    height: 220,
+    backgroundColor: "#000000",
+  },
+  cruiseContent: {
+    padding: 22,
+  },
+  cruiseDescription: {
+    color: "#cdb9ab",
+    fontSize: 15,
+    lineHeight: 24,
+    marginBottom: 14,
+  },
+  cruiseMetaRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginBottom: 14,
+  },
+  cruiseMetaText: {
+    color: "#e6d5c2",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  cruiseMetaDot: {
+    color: "#df8d42",
+    marginHorizontal: 8,
+    fontSize: 14,
+    fontWeight: "800",
   },
   cardAccent: {
     backgroundColor: "#2b1822",
