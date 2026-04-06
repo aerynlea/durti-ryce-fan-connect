@@ -578,6 +578,51 @@ export default function App() {
                 </View>
               </View>
 
+              <View style={styles.cruiseCard}>
+                <View style={styles.cruiseHeroWrap}>
+                  <Image
+                    source={durtiCocktailCruise}
+                    style={styles.cruiseHeroImage}
+                    resizeMode="contain"
+                  />
+                </View>
+                <View style={styles.cruiseContent}>
+                  <Text style={styles.cardEyebrow}>Special Event</Text>
+                  <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Experience</Text>
+                  <Text style={styles.cardBody}>
+                    Concert at Sea Vol. II • June 11-14, 2027
+                  </Text>
+                  <Text style={styles.cruiseDescription}>
+                    Step into an elevated cruise experience built around soulful live performances, signature moments, and the unmistakable Durti-Ryce atmosphere at sea.
+                  </Text>
+                  <View style={styles.cruiseMetaRow}>
+                    <Text style={styles.cruiseMetaText}>Live Music</Text>
+                    <Text style={styles.cruiseMetaDot}>•</Text>
+                    <Text style={styles.cruiseMetaText}>Cocktail Lounge Vibes</Text>
+                    <Text style={styles.cruiseMetaDot}>•</Text>
+                    <Text style={styles.cruiseMetaText}>Premium Experience</Text>
+                  </View>
+                  <View style={styles.cruiseDetailBox}>
+                    <Text style={styles.supportText}>
+                      Sail aboard the Ovation of the Seas from San Pedro, CA to Ensenada, Mexico.
+                    </Text>
+                    <Text style={styles.supportText}>
+                      Live performances ft. Deron, Monique Renee, Hunter Lane, a special surprise guest, DJ Shell, the signature Durti Cocktail Lounge experience, and VIP moments hosted by Deron.
+                    </Text>
+                    <Text style={styles.supportText}>
+                      Game room experience includes Spades, Bid Whist, Dominoes, line dancing, stepping, and VIP recognition moments.
+                    </Text>
+                    <Text style={styles.supportText}>
+                      Deposit: $100 per person. Final payment due March 1, 2027. Limited cabins available.
+                    </Text>
+                  </View>
+                  <ActionButton
+                    label="Reserve Your Cabin"
+                    onPress={() => openLink(siteLinks.cruise)}
+                  />
+                </View>
+              </View>
+
               <Card accent>
                 <Image
                   source={{ uri: nextShow.image }}
@@ -735,16 +780,6 @@ export default function App() {
                 <ActionButton
                   label="Book Monique"
                   onPress={() => openLink(siteLinks.moniqueBooking)}
-                />
-              </Card>
-              <Card>
-                <Text style={styles.cardTitle}>Ask Deron</Text>
-                <Text style={styles.cardBody}>
-                  Reach out directly for questions, connection, and artist-facing inquiries tied to the Durti-Ryce experience.
-                </Text>
-                <ActionButton
-                  label="Ask Deron"
-                  onPress={() => openLink(siteLinks.askDeron)}
                 />
               </Card>
             </View>
@@ -940,50 +975,6 @@ export default function App() {
                 title="Go Deeper Into the Experience"
                 description="From booking and direct updates to social connection and behind-the-scenes access, this is where the wider world of Durti-Ryce opens up."
               />
-              <View style={styles.cruiseCard}>
-                <View style={styles.cruiseHeroWrap}>
-                  <Image
-                    source={durtiCocktailCruise}
-                    style={styles.cruiseHeroImage}
-                    resizeMode="contain"
-                  />
-                </View>
-                <View style={styles.cruiseContent}>
-                  <Text style={styles.cardEyebrow}>Special Event</Text>
-                  <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Experience</Text>
-                  <Text style={styles.cardBody}>
-                    Concert at Sea Vol. II • June 11-14, 2027
-                  </Text>
-                  <Text style={styles.cruiseDescription}>
-                    Step into an elevated cruise experience built around soulful live performances, signature moments, and the unmistakable Durti-Ryce atmosphere at sea.
-                  </Text>
-                  <View style={styles.cruiseMetaRow}>
-                    <Text style={styles.cruiseMetaText}>Live Music</Text>
-                    <Text style={styles.cruiseMetaDot}>•</Text>
-                    <Text style={styles.cruiseMetaText}>Cocktail Lounge Vibes</Text>
-                    <Text style={styles.cruiseMetaDot}>•</Text>
-                    <Text style={styles.cruiseMetaText}>Premium Experience</Text>
-                  </View>
-                  <View style={styles.cruiseDetailBox}>
-                    <Text style={styles.supportText}>
-                      Sail aboard the Ovation of the Seas from San Pedro, CA to Ensenada, Mexico.
-                    </Text>
-                    <Text style={styles.supportText}>
-                      Live performances ft. Deron, Monique Renee, Hunter Lane, a special surprise guest, DJ Shell, the signature Durti Cocktail Lounge experience, and VIP moments hosted by Deron.
-                    </Text>
-                    <Text style={styles.supportText}>
-                      Game room experience includes Spades, Bid Whist, Dominoes, line dancing, stepping, and VIP recognition moments.
-                    </Text>
-                    <Text style={styles.supportText}>
-                      Deposit: $100 per person. Final payment due March 1, 2027. Limited cabins available.
-                    </Text>
-                  </View>
-                  <ActionButton
-                    label="Reserve Your Cabin"
-                    onPress={() => openLink(siteLinks.cruise)}
-                  />
-                </View>
-              </View>
               <Card>
                 <Image
                   source={durtiCocktailCruisePhotos}
@@ -1001,25 +992,13 @@ export default function App() {
                 />
               </Card>
               <Card>
-                <Text style={styles.cardTitle}>Newsletter and fan data</Text>
+                <Text style={styles.cardTitle}>Ask Deron</Text>
                 <Text style={styles.cardBody}>
-                  In the next version, connect the signup form to a real email
-                  platform and capture city-based fan demand.
+                  Reach out directly for questions, conversation, and artist-facing connection.
                 </Text>
                 <ActionButton
                   label="Ask Deron"
                   onPress={() => openLink(siteLinks.askDeron)}
-                />
-              </Card>
-              <Card>
-                <Text style={styles.cardTitle}>Book the band</Text>
-                <Text style={styles.cardBody}>
-                  Keep booking inquiries one tap away for venues, festivals, and
-                  private events.
-                </Text>
-                <ActionButton
-                  label="Event Booking"
-                  onPress={() => openLink(siteLinks.booking)}
                 />
               </Card>
               <Card>
