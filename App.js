@@ -21,6 +21,7 @@ const deronProfile = require("./assets/deron-profile.png");
 const durtiCocktailCruise = require("./assets/durti-cocktail-lounge-cruise.png");
 const durtiCocktailCruisePhotos = require("./assets/dcl-cruise-vol-1-photos.png");
 const durtiRyceHomeHero = require("./assets/durti-ryce-home-hero.png");
+const durtiRyceBookingCard = require("./assets/durti-ryce-booking-card.png");
 
 const siteLinks = {
   home: "https://durtiryce.com/",
@@ -36,6 +37,7 @@ const siteLinks = {
   askDeron: "https://durtiryce.com/ask-deron/",
   audio: "https://durtiryce.com/audio/",
   contact: "https://durtiryce.com/contact/",
+  moniqueBooking: "https://moniquereneethe1.com/",
   cruise: "https://durtiryce.com/cruise-registration",
   cruisePhotos: "https://durtiryce.com/dcl-cruise-vol-1-photos",
 };
@@ -77,7 +79,7 @@ const socialLinks = [
   { name: "Contact", url: siteLinks.contact },
 ];
 
-const tabs = ["Home", "Shows", "Music", "Merch", "Artists", "Fandom", "More"];
+const tabs = ["Home", "Shows", "Bookings", "Merch", "More"];
 
 const shows = [
   {
@@ -368,8 +370,8 @@ const artistProfiles = [
     image: moniqueReneeProfile,
     primaryLabel: "Instagram",
     primaryUrl: "https://www.instagram.com/uniquemojo/",
-    secondaryLabel: "Videos",
-    secondaryUrl: "https://www.youtube.com/watch?v=nelKCEVnqaM",
+    secondaryLabel: "Book Monique",
+    secondaryUrl: siteLinks.moniqueBooking,
   },
 ];
 
@@ -603,19 +605,18 @@ export default function App() {
 
               <Card>
                 <Image
-                  source={{ uri: siteImages.newport }}
-                  style={styles.featureImage}
-                  resizeMode="cover"
+                  source={durtiRyceBookingCard}
+                  style={styles.bookingFeatureImage}
+                  resizeMode="contain"
                 />
-                <Text style={styles.cardEyebrow}>Latest Release</Text>
-                <Text style={styles.cardTitle}>Stream the newest music</Text>
+                <Text style={styles.cardEyebrow}>Bookings</Text>
+                <Text style={styles.cardTitle}>Book the live experience</Text>
                 <Text style={styles.cardBody}>
-                  Bring the latest release, audio previews, and video content into
-                  one music destination for fans.
+                  Connect directly for full-band bookings, private events, and featured live appearances through the official event booking page.
                 </Text>
                 <ActionButton
-                  label="Open Music Hub"
-                  onPress={() => openLink(siteLinks.audio)}
+                  label="Open Booking Page"
+                  onPress={() => openLink(siteLinks.booking)}
                 />
               </Card>
 
@@ -709,23 +710,43 @@ export default function App() {
             </View>
           )}
 
-          {activeTab === "Music" && (
+          {activeTab === "Bookings" && (
             <View style={styles.section}>
               <SectionHeader
-                eyebrow="New Releases"
-                title="Where Soul Meets the Stage"
-                description="Step into the sound of Durti-Ryce live performances, timeless R&B energy, and moments that bring the music to life beyond the stage. Some releases may stream for free, while others may require purchase or platform login."
+                eyebrow="Bookings"
+                title="Book the Experience"
+                description="Connect directly for live bookings, artist appearances, and featured performance inquiries."
               />
-              {releases.map((item) => (
-                <Card key={item.title}>
-                  <Text style={styles.cardTitle}>{item.title}</Text>
-                  <Text style={styles.cardBody}>{item.description}</Text>
-                  <ActionButton
-                    label={item.cta}
-                    onPress={() => openLink(item.url)}
-                  />
-                </Card>
-              ))}
+              <Card accent>
+                <Text style={styles.cardTitle}>Book Durti-Ryce</Text>
+                <Text style={styles.cardBody}>
+                  Use the direct event booking page for full-band performances, venue requests, private events, and curated live experiences.
+                </Text>
+                <ActionButton
+                  label="Event Booking"
+                  onPress={() => openLink(siteLinks.booking)}
+                />
+              </Card>
+              <Card>
+                <Text style={styles.cardTitle}>Book Monique Renée</Text>
+                <Text style={styles.cardBody}>
+                  Connect directly through Monique’s official website for booking inquiries and featured appearance requests.
+                </Text>
+                <ActionButton
+                  label="Book Monique"
+                  onPress={() => openLink(siteLinks.moniqueBooking)}
+                />
+              </Card>
+              <Card>
+                <Text style={styles.cardTitle}>Ask Deron</Text>
+                <Text style={styles.cardBody}>
+                  Reach out directly for questions, connection, and artist-facing inquiries tied to the Durti-Ryce experience.
+                </Text>
+                <ActionButton
+                  label="Ask Deron"
+                  onPress={() => openLink(siteLinks.askDeron)}
+                />
+              </Card>
             </View>
           )}
 
@@ -1157,6 +1178,14 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginBottom: 14,
     backgroundColor: "#241720",
+  },
+  bookingFeatureImage: {
+    width: "100%",
+    height: 190,
+    borderRadius: 18,
+    marginBottom: 14,
+    padding: 10,
+    backgroundColor: "#120c12",
   },
   cruiseHeroImage: {
     width: "100%",
