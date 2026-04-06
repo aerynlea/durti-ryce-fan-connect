@@ -922,8 +922,8 @@ export default function App() {
               <Card>
                 <Image
                   source={durtiCocktailCruise}
-                  style={styles.featureImage}
-                  resizeMode="cover"
+                  style={[styles.featureImage, styles.cruiseFeatureImage]}
+                  resizeMode="contain"
                 />
                 <Text style={styles.cardEyebrow}>Special Event</Text>
                 <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Experience</Text>
@@ -1129,6 +1129,9 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginBottom: 14,
     backgroundColor: "#241720",
+  },
+  cruiseFeatureImage: {
+    padding: 12,
   },
   cardAccent: {
     backgroundColor: "#2b1822",
