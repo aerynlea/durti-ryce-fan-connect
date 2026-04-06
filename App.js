@@ -79,7 +79,7 @@ const socialLinks = [
   { name: "Contact", url: siteLinks.contact },
 ];
 
-const tabs = ["Home", "Shows", "Bookings", "Merch", "More"];
+const tabs = ["Home", "Shows", "Bookings", "Merch", "Artists", "More"];
 
 const shows = [
   {
