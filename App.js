@@ -359,7 +359,7 @@ const artistProfiles = [
     primaryLabel: "Instagram",
     primaryUrl: "https://www.instagram.com/hunterlane_music/",
     secondaryLabel: "Videos",
-    secondaryUrl: siteLinks.videos,
+    secondaryUrl: "https://www.facebook.com/watch/?v=942110148211739",
   },
   {
     name: "Monique Renée",
@@ -369,7 +369,7 @@ const artistProfiles = [
     primaryLabel: "Instagram",
     primaryUrl: "https://www.instagram.com/uniquemojo/",
     secondaryLabel: "Videos",
-    secondaryUrl: siteLinks.videos,
+    secondaryUrl: "https://www.youtube.com/watch?v=nelKCEVnqaM",
   },
 ];
 
