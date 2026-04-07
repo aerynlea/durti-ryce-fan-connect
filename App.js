@@ -9,7 +9,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { buildDefaultSelections, fetchMerchCatalog } from "./lib/merch";
@@ -130,18 +129,18 @@ const shows = [
 
 const releases = [
   {
-    title: "New Release Hub",
+    title: "Listen Now",
     description:
-      "Stay connected to the sound. From fresh releases to signature renditions, experience the music that defines Durti-Ryce all in one place.",
+      "Stream the latest Durti-Ryce music, revisit signature favorites, and keep the sound close between live shows.",
     url: siteLinks.audio,
-    cta: "Enter the Vibe",
+    cta: "Open Audio Hub",
   },
   {
     title: "Performance Videos",
     description:
-      "Feel the energy of every performance. From crowd-favorite tributes to behind-the-scenes moments, this is where the stage comes alive.",
+      "Watch live moments, crowd favorites, and performance highlights that bring the stage energy into the app.",
     url: "https://www.youtube.com/@Durti-Ryce/videos",
-    cta: "Watch the Experience",
+    cta: "Watch Videos",
   },
 ];
 
@@ -419,11 +418,15 @@ function InfoPill({ label }) {
   );
 }
 
+function formatPrice(price) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(price);
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("Home");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
   const [catalogItems, setCatalogItems] = useState(fallbackMerchItems);
   const [merchSyncState, setMerchSyncState] = useState(
     isSupabaseConfigured ? "Connecting to Supabase catalog..." : "Using built-in merch catalog",
@@ -491,22 +494,6 @@ export default function App() {
     return item.imagesByColor?.[selectedColor] ?? item.image;
   };
 
-  const submitNewsletter = () => {
-    if (!name.trim() || !email.trim()) {
-      Alert.alert("Almost there", "Please add your name and email to join the newsletter.");
-      return;
-    }
-
-    Alert.alert(
-      "Thanks for joining",
-      `${name.trim()}, your info has been captured for the Durti-Ryce Fan Connect MVP. Next we can wire this form to a real email platform.`,
-    );
-
-    setName("");
-    setEmail("");
-    setCity("");
-  };
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="light" />
@@ -553,17 +540,16 @@ export default function App() {
                 <Text style={styles.bandName}>Durti-Ryce Fan Connect</Text>
                 <Text style={styles.tagline}>
                   Durti-Ryce is a Los Angeles-based R&B collective known for
-                  high-energy live performances, soulful precision, and a stage
-                  presence that turns every show into an experience. Featuring
-                  powerhouse vocalist Deron, the group honors the
-                  timeless spirit of classic R&B while building modern spaces
-                  for connection, celebration, and nostalgia through
-                  Durti-Ryce Nation.
+                  high-energy performances, soulful precision, and a stage
+                  presence that turns every set into an experience. Featuring
+                  powerhouse vocalist Deron, the group honors classic R&B while
+                  creating modern spaces for connection, celebration, and
+                  community through Durti-Ryce Nation.
                 </Text>
                 <View style={styles.heroPills}>
-                  <InfoPill label="Mobile first" />
-                  <InfoPill label="Fast fan actions" />
-                  <InfoPill label="Accessible" />
+                  <InfoPill label="Shows and tickets" />
+                  <InfoPill label="Merch and music" />
+                  <InfoPill label="Fan connection" />
                 </View>
                 <View style={styles.heroActions}>
                   <ActionButton
@@ -623,6 +609,29 @@ export default function App() {
                 </View>
               </View>
 
+              <Card>
+                <Text style={styles.cardEyebrow}>Now Playing</Text>
+                <Text style={styles.cardTitle}>Stay connected between shows</Text>
+                <Text style={styles.cardBody}>
+                  Jump straight into the latest music and performance highlights without leaving the app flow.
+                </Text>
+                {releases.map((release) => (
+                  <View key={release.title} style={styles.releaseRow}>
+                    <View style={styles.releaseCopy}>
+                      <Text style={styles.releaseTitle}>{release.title}</Text>
+                      <Text style={styles.supportText}>{release.description}</Text>
+                    </View>
+                    <View style={styles.releaseAction}>
+                      <ActionButton
+                        label={release.cta}
+                        onPress={() => openLink(release.url)}
+                        secondary
+                      />
+                    </View>
+                  </View>
+                ))}
+              </Card>
+
               <Card accent>
                 <Image
                   source={{ uri: nextShow.image }}
@@ -674,8 +683,7 @@ export default function App() {
                 <Text style={styles.cardEyebrow}>Featured Merch</Text>
                 <Text style={styles.cardTitle}>Limited edition drops</Text>
                 <Text style={styles.cardBody}>
-                  Create urgency around new apparel, collectibles, and show-night
-                  merch with quick shopping links.
+                  Browse fan favorites, signature apparel, and standout pieces from the current Durti-Ryce collection.
                 </Text>
                 <ActionButton
                   label="Shop Merch"
@@ -684,36 +692,22 @@ export default function App() {
               </Card>
 
               <Card>
-                <Text style={styles.cardEyebrow}>Newsletter</Text>
+                <Text style={styles.cardEyebrow}>Direct Connection</Text>
                 <Text style={styles.cardTitle}>Stay close to the music</Text>
                 <Text style={styles.cardBody}>
-                  Capture fan name, email, and city so updates can be personalized
-                  around tour stops and exclusive drops.
+                  There is not a live newsletter yet, so the best way to stay connected right now is through Ask Deron and the official fan-club experience.
                 </Text>
-                <TextInput
-                  value={name}
-                  onChangeText={setName}
-                  placeholder="Name"
-                  placeholderTextColor="#8b819c"
-                  style={styles.input}
-                />
-                <TextInput
-                  value={email}
-                  onChangeText={setEmail}
-                  placeholder="Email"
-                  placeholderTextColor="#8b819c"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  style={styles.input}
-                />
-                <TextInput
-                  value={city}
-                  onChangeText={setCity}
-                  placeholder="City"
-                  placeholderTextColor="#8b819c"
-                  style={styles.input}
-                />
-                <ActionButton label="Join Newsletter" onPress={submitNewsletter} />
+                <View style={styles.inlineActions}>
+                  <ActionButton
+                    label="Ask Deron"
+                    onPress={() => openLink(siteLinks.askDeron)}
+                  />
+                  <ActionButton
+                    label="Join Fan Club"
+                    onPress={() => openLink(siteLinks.fanClub)}
+                    secondary
+                  />
+                </View>
               </Card>
             </View>
           )}
@@ -722,8 +716,8 @@ export default function App() {
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="Tour Dates"
-                title="Be There When the Music Moves"
-                description="Explore upcoming performances, secure your place, and stay close to the moments where Durti-Ryce comes fully alive on stage."
+                title="Be There When the Music Starts"
+                description="Explore upcoming performances, grab tickets, and stay close to the moments where Durti-Ryce comes fully alive on stage."
               />
               {shows.map((show) => (
                 <Card key={`${show.title}-${show.date}`}>
@@ -760,7 +754,7 @@ export default function App() {
               <SectionHeader
                 eyebrow="Bookings"
                 title="Book the Experience"
-                description="Connect directly for live bookings, artist appearances, and featured performance inquiries."
+                description="Connect directly for full-band performances, featured appearances, and event inquiries."
               />
               <Card accent>
                 <Text style={styles.cardTitle}>Book Durti-Ryce</Text>
@@ -790,8 +784,16 @@ export default function App() {
               <SectionHeader
                 eyebrow="Merchandise"
                 title="Wear the Experience"
-                description="Step into the world of Durti-Ryce through signature pieces, fan favorites, and limited-edition items designed to keep the music with you beyond the stage."
+                description="Browse signature pieces, fan favorites, and limited-edition drops designed to keep the music with you beyond the stage."
               />
+              <Card accent>
+                <Text style={styles.cartEyebrow}>Catalog Status</Text>
+                <Text style={styles.cardTitle}>Merch source</Text>
+                <Text style={styles.cardBody}>{merchSyncState}</Text>
+                <Text style={styles.supportText}>
+                  Product options shown here help fans preview styles before finishing checkout on the secure store page.
+                </Text>
+              </Card>
               {catalogItems.map((item) => (
                 <Card key={item.id}>
                   <Image
@@ -801,7 +803,7 @@ export default function App() {
                   />
                   <Text style={styles.cardTitle}>{item.name}</Text>
                   <Text style={styles.cardEyebrow}>{item.badge}</Text>
-                  <Text style={styles.cardBody}>${item.price}</Text>
+                  <Text style={styles.cardBody}>{formatPrice(item.price)}</Text>
                   <Text style={styles.supportText}>{item.description}</Text>
                   {item.colors?.length ? (
                     <View style={styles.optionBlock}>
@@ -904,7 +906,7 @@ export default function App() {
               <SectionHeader
                 eyebrow="Artist Profiles"
                 title="Meet the Voices Behind the Experience"
-                description="Discover the artists who shape the sound, energy, and spirit of Durti-Ryce from center-stage presence to unforgettable vocal moments."
+                description="Discover the artists who shape the sound, energy, and spirit of Durti-Ryce, from center-stage presence to unforgettable vocal moments."
               />
               {artistProfiles.map((artist) => (
                 <Card key={artist.name}>
@@ -936,45 +938,36 @@ export default function App() {
             </View>
           )}
 
-          {activeTab === "Fandom" && (
-            <View style={styles.section}>
-              <SectionHeader
-                eyebrow="Durti-Ryce Nation"
-                title="Join the Inner Circle"
-                description="Exclusive access, deeper connection, and fan experiences designed for the people who move with the music."
-              />
-              <Card accent>
-                <Text style={styles.cardTitle}>Durti-Ryce Nation</Text>
-                <Text style={styles.cardBody}>
-                  Step into the official fan community for priority access,
-                  exclusive updates, special experiences, and a deeper
-                  connection to the world of Durti-Ryce.
-                </Text>
-                <ActionButton
-                  label="Enter Fan Club"
-                  onPress={() => openLink(siteLinks.fanClub)}
-                />
-              </Card>
-              {fanClubTiers.map((tier) => (
-                <Card key={tier.name}>
-                  <Text style={styles.cardTitle}>{tier.name} Member</Text>
-                  <Text style={styles.supportText}>{tier.description}</Text>
-                  <ActionButton
-                    label={`View ${tier.name}`}
-                    onPress={() => openLink(tier.url)}
-                  />
-                </Card>
-              ))}
-            </View>
-          )}
-
           {activeTab === "More" && (
             <View style={styles.section}>
               <SectionHeader
                 eyebrow="More"
                 title="Go Deeper Into the Experience"
-                description="From booking and direct updates to social connection and behind-the-scenes access, this is where the wider world of Durti-Ryce opens up."
+                description="From fan-club access to social connection and behind-the-scenes moments, this is where the wider world of Durti-Ryce opens up."
               />
+              <Card accent>
+                <Text style={styles.cardEyebrow}>Durti-Ryce Nation</Text>
+                <Text style={styles.cardTitle}>Join the fan club</Text>
+                <Text style={styles.cardBody}>
+                  Step into the official fan community for priority access, exclusive updates, and deeper connection to the Durti-Ryce world.
+                </Text>
+                <ActionButton
+                  label="Enter Fan Club"
+                  onPress={() => openLink(siteLinks.fanClub)}
+                />
+                <View style={styles.tierGrid}>
+                  {fanClubTiers.map((tier) => (
+                    <Pressable
+                      key={tier.name}
+                      style={styles.tierCard}
+                      onPress={() => openLink(tier.url)}
+                    >
+                      <Text style={styles.tierTitle}>{tier.name}</Text>
+                      <Text style={styles.tierText}>{tier.description}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              </Card>
               <Card>
                 <Image
                   source={durtiCocktailCruisePhotos}
@@ -1037,12 +1030,12 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 18,
-    paddingTop: 12,
-    paddingBottom: 40,
+    paddingTop: 18,
+    paddingBottom: 52,
   },
   tabRow: {
-    paddingTop: 6,
-    paddingBottom: 10,
+    paddingTop: 10,
+    paddingBottom: 14,
     borderBottomWidth: 1,
     borderBottomColor: "#2b2028",
     backgroundColor: "#120c12",
@@ -1053,8 +1046,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   tab: {
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 11,
     borderRadius: 999,
     backgroundColor: "#241720",
     borderWidth: 1,
@@ -1072,20 +1065,20 @@ const styles = StyleSheet.create({
     color: "#1b0f0c",
   },
   section: {
-    gap: 14,
+    gap: 18,
   },
   heroCard: {
     borderRadius: 30,
-    padding: 22,
+    padding: 24,
     backgroundColor: "#241720",
     borderWidth: 1,
     borderColor: "#4c3340",
   },
   heroImage: {
     width: "100%",
-    height: 220,
+    height: 236,
     borderRadius: 22,
-    marginBottom: 18,
+    marginBottom: 20,
   },
   bandName: {
     color: "#f7eddf",
@@ -1107,10 +1100,11 @@ const styles = StyleSheet.create({
   },
   heroActions: {
     gap: 10,
-    marginTop: 18,
+    marginTop: 20,
   },
   sectionHeader: {
-    marginBottom: 6,
+    marginBottom: 10,
+    paddingHorizontal: 2,
   },
   eyebrow: {
     color: "#df8d42",
@@ -1134,7 +1128,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 24,
-    padding: 18,
+    padding: 20,
     backgroundColor: "#1b1118",
     borderWidth: 1,
     borderColor: "#3a2a34",
@@ -1147,35 +1141,35 @@ const styles = StyleSheet.create({
     borderColor: "rgba(223, 141, 66, 0.22)",
   },
   cruiseHeroWrap: {
-    padding: 18,
+    padding: 20,
     paddingBottom: 0,
     backgroundColor: "#111111",
   },
   featureImage: {
     width: "100%",
-    height: 180,
+    height: 188,
     borderRadius: 18,
-    marginBottom: 14,
+    marginBottom: 16,
     backgroundColor: "#241720",
   },
   bookingFeatureImage: {
     width: "100%",
-    height: 190,
+    height: 198,
     borderRadius: 18,
-    marginBottom: 14,
+    marginBottom: 16,
     padding: 10,
     backgroundColor: "#120c12",
   },
   cruiseHeroImage: {
     width: "100%",
-    height: 220,
+    height: 228,
     backgroundColor: "#000000",
     borderRadius: 22,
     borderWidth: 1,
     borderColor: "#2a2127",
   },
   cruiseContent: {
-    padding: 22,
+    padding: 24,
   },
   cruiseDescription: {
     color: "#cdb9ab",
@@ -1187,12 +1181,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-    marginBottom: 14,
+    marginBottom: 16,
   },
   cruiseDetailBox: {
     borderRadius: 18,
-    padding: 14,
-    marginBottom: 14,
+    padding: 16,
+    marginBottom: 16,
     backgroundColor: "#181016",
     borderWidth: 1,
     borderColor: "#32252c",
@@ -1216,38 +1210,38 @@ const styles = StyleSheet.create({
     color: "#df8d42",
     fontWeight: "800",
     textTransform: "uppercase",
-    letterSpacing: 1,
-    marginBottom: 8,
+    letterSpacing: 1.1,
+    marginBottom: 10,
   },
   cardTitle: {
     color: "#f7eddf",
     fontSize: 21,
-    lineHeight: 28,
+    lineHeight: 29,
     fontWeight: "800",
-    marginBottom: 8,
+    marginBottom: 10,
   },
   cardBody: {
     color: "#e9d9cd",
     fontSize: 15,
-    lineHeight: 22,
-    marginBottom: 8,
+    lineHeight: 23,
+    marginBottom: 10,
   },
   supportText: {
     color: "#cdb9ab",
     fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 6,
+    lineHeight: 21,
+    marginBottom: 8,
   },
   noteText: {
     color: "#b99c88",
     fontSize: 14,
     lineHeight: 20,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   pill: {
     borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 13,
+    paddingVertical: 9,
     backgroundColor: "#3a2430",
   },
   pillText: {
@@ -1256,13 +1250,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   button: {
-    minHeight: 48,
+    minHeight: 52,
     borderRadius: 999,
     backgroundColor: "#df8d42",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
   },
   secondaryButton: {
     backgroundColor: "transparent",
@@ -1281,26 +1275,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-    marginTop: 8,
+    marginTop: 10,
   },
-  input: {
-    borderRadius: 16,
-    backgroundColor: "#271c24",
-    borderWidth: 1,
-    borderColor: "#3f2f3a",
+  releaseRow: {
+    paddingTop: 16,
+    marginTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: "#3a2a34",
+    gap: 12,
+  },
+  releaseCopy: {
+    gap: 4,
+  },
+  releaseTitle: {
     color: "#f7eddf",
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  releaseAction: {
+    alignSelf: "flex-start",
   },
   optionBlock: {
-    marginBottom: 12,
+    marginBottom: 14,
   },
   optionLabel: {
     color: "#f7c98d",
     fontSize: 13,
     fontWeight: "800",
-    marginBottom: 8,
+    marginBottom: 10,
     textTransform: "uppercase",
     letterSpacing: 0.8,
   },
@@ -1311,8 +1313,8 @@ const styles = StyleSheet.create({
   },
   optionChip: {
     borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 13,
+    paddingVertical: 9,
     borderWidth: 1,
     borderColor: "#6e5050",
     backgroundColor: "#241720",
@@ -1381,9 +1383,9 @@ const styles = StyleSheet.create({
   cartSummary: {
     borderTopWidth: 1,
     borderTopColor: "#4b3640",
-    marginTop: 8,
-    paddingTop: 14,
-    marginBottom: 14,
+    marginTop: 10,
+    paddingTop: 16,
+    marginBottom: 16,
     gap: 6,
   },
   cartSummaryText: {
@@ -1398,12 +1400,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-    marginTop: 8,
+    marginTop: 10,
   },
   linkChip: {
     borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 11,
     backgroundColor: "#241720",
     borderWidth: 1,
     borderColor: "#3f2f3a",
@@ -1411,5 +1413,27 @@ const styles = StyleSheet.create({
   linkChipText: {
     color: "#f7eddf",
     fontWeight: "700",
+  },
+  tierGrid: {
+    gap: 10,
+    marginTop: 16,
+  },
+  tierCard: {
+    borderRadius: 18,
+    padding: 16,
+    backgroundColor: "#1b1118",
+    borderWidth: 1,
+    borderColor: "#4b3640",
+  },
+  tierTitle: {
+    color: "#f7eddf",
+    fontSize: 16,
+    fontWeight: "800",
+    marginBottom: 4,
+  },
+  tierText: {
+    color: "#cdb9ab",
+    fontSize: 14,
+    lineHeight: 20,
   },
 });
