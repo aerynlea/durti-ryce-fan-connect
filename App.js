@@ -107,8 +107,9 @@ const shows = [
   },
   {
     title: "Spaghettini Sunday Brunch",
+    eventDate: "2026-05-17",
     city: "Seal Beach, CA",
-    date: "Spring 2026",
+    date: "May 17, 2026",
     time: "Brunch Show",
     note: "Tickets available now",
     venue: "3005 Old Ranch Parkway, Seal Beach, CA 90740",
@@ -623,8 +624,8 @@ export default function App() {
                 <Card accent>
                   <Image
                     source={{ uri: nextShow.image }}
-                    style={styles.featureImage}
-                    resizeMode="cover"
+                    style={styles.promoFeatureImage}
+                    resizeMode="contain"
                   />
                   <Text style={styles.cardEyebrow}>Next Show</Text>
                   <Text style={styles.cardTitle}>{nextShow.title}</Text>
@@ -720,8 +721,8 @@ export default function App() {
                 <Card key={`${show.title}-${show.date}`}>
                   <Image
                     source={{ uri: show.image }}
-                    style={styles.featureImage}
-                    resizeMode="cover"
+                    style={styles.promoFeatureImage}
+                    resizeMode="contain"
                   />
                   <Text style={styles.cardTitle}>{show.title}</Text>
                   <Text style={styles.cardBody}>
@@ -913,8 +914,8 @@ export default function App() {
                         ? { uri: artist.image }
                         : artist.image
                     }
-                    style={styles.featureImage}
-                    resizeMode="cover"
+                    style={styles.portraitFeatureImage}
+                    resizeMode="contain"
                   />
                   <Text style={styles.cardTitle}>{artist.name}</Text>
                   <Text style={styles.cardEyebrow}>{artist.role}</Text>
@@ -968,8 +969,8 @@ export default function App() {
               <Card>
                 <Image
                   source={durtiCocktailCruisePhotos}
-                  style={styles.featureImage}
-                  resizeMode="cover"
+                  style={styles.promoFeatureImage}
+                  resizeMode="contain"
                 />
                 <Text style={styles.cardEyebrow}>Cruise Photos</Text>
                 <Text style={styles.cardTitle}>Durti Cocktail Lounge Cruise Vol. I Photos</Text>
@@ -1148,6 +1149,22 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginBottom: 16,
     backgroundColor: "#241720",
+  },
+  promoFeatureImage: {
+    width: "100%",
+    height: 220,
+    borderRadius: 18,
+    marginBottom: 16,
+    padding: 8,
+    backgroundColor: "#120c12",
+  },
+  portraitFeatureImage: {
+    width: "100%",
+    height: 280,
+    borderRadius: 18,
+    marginBottom: 16,
+    padding: 10,
+    backgroundColor: "#120c12",
   },
   bookingFeatureImage: {
     width: "100%",
