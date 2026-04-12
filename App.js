@@ -83,6 +83,7 @@ const tabs = ["Home", "Shows", "Bookings", "Merch", "Artists", "More"];
 const shows = [
   {
     title: "Catalina Jazz Club",
+    eventDate: "2026-04-10",
     city: "Hollywood, CA",
     date: "April 10, 2026",
     time: "8:30 PM",
@@ -94,6 +95,7 @@ const shows = [
   },
   {
     title: "Catalina Jazz Club",
+    eventDate: "2026-04-11",
     city: "Hollywood, CA",
     date: "April 11, 2026",
     time: "8:30 PM",
@@ -110,12 +112,13 @@ const shows = [
     time: "Brunch Show",
     note: "Tickets available now",
     venue: "3005 Old Ranch Parkway, Seal Beach, CA 90740",
-    ticketUrl: "https://www.tix.com/ticket-sales/ThorntonWinery/4672/event/1459462",
+    ticketUrl: "https://www.tix.com/ticket-sales/spaghettini/4030/event/1439425",
     mapUrl: "https://maps.apple.com/?q=3005+Old+Ranch+Parkway+Seal+Beach+CA+90740",
     image: siteImages.spaghettini,
   },
   {
     title: "Newport Beach Jazz Festival",
+    eventDate: "2026-05-30",
     city: "Newport Beach, CA",
     date: "May 30, 2026",
     time: "Festival Schedule",
@@ -124,23 +127,6 @@ const shows = [
     ticketUrl: "https://tickets.hyattconcerts.com/",
     mapUrl: "https://maps.apple.com/?q=1107+Jamboree+Rd+Newport+Beach+CA",
     image: siteImages.newport,
-  },
-];
-
-const releases = [
-  {
-    title: "Listen Now",
-    description:
-      "Stream the latest Durti-Ryce music, revisit signature favorites, and keep the sound close between live shows.",
-    url: siteLinks.audio,
-    cta: "Open Audio Hub",
-  },
-  {
-    title: "Performance Videos",
-    description:
-      "Watch live moments, crowd favorites, and performance highlights that bring the stage energy into the app.",
-    url: "https://www.youtube.com/@Durti-Ryce/videos",
-    cta: "Watch Videos",
   },
 ];
 
@@ -425,6 +411,16 @@ function formatPrice(price) {
   }).format(price);
 }
 
+function getStartOfToday() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+}
+
+function getShowEventDate(show) {
+  return show.eventDate ? new Date(`${show.eventDate}T00:00:00`) : null;
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("Home");
   const [catalogItems, setCatalogItems] = useState(fallbackMerchItems);
@@ -438,7 +434,21 @@ export default function App() {
     () => buildDefaultSelections(fallbackMerchItems).sizes,
   );
 
-  const nextShow = useMemo(() => shows[0], []);
+  const visibleShows = useMemo(() => {
+    const startOfToday = getStartOfToday();
+    const upcomingDatedShows = shows.filter((show) => {
+      const eventDate = getShowEventDate(show);
+      return eventDate && eventDate >= startOfToday;
+    });
+    const undatedShows = shows.filter((show) => !show.eventDate);
+
+    return [...upcomingDatedShows, ...undatedShows];
+  }, []);
+
+  const nextShow = useMemo(
+    () => visibleShows.find((show) => show.eventDate) ?? visibleShows[0] ?? null,
+    [visibleShows],
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -609,53 +619,40 @@ export default function App() {
                 </View>
               </View>
 
-              <Card>
-                <Text style={styles.cardEyebrow}>Now Playing</Text>
-                <Text style={styles.cardTitle}>Stay connected between shows</Text>
-                <Text style={styles.cardBody}>
-                  Jump straight into the latest music and performance highlights without leaving the app flow.
-                </Text>
-                {releases.map((release) => (
-                  <View key={release.title} style={styles.releaseRow}>
-                    <View style={styles.releaseCopy}>
-                      <Text style={styles.releaseTitle}>{release.title}</Text>
-                      <Text style={styles.supportText}>{release.description}</Text>
-                    </View>
-                    <View style={styles.releaseAction}>
-                      <ActionButton
-                        label={release.cta}
-                        onPress={() => openLink(release.url)}
-                        secondary
-                      />
-                    </View>
+              {nextShow ? (
+                <Card accent>
+                  <Image
+                    source={{ uri: nextShow.image }}
+                    style={styles.featureImage}
+                    resizeMode="cover"
+                  />
+                  <Text style={styles.cardEyebrow}>Next Show</Text>
+                  <Text style={styles.cardTitle}>{nextShow.title}</Text>
+                  <Text style={styles.cardBody}>
+                    {nextShow.date} • {nextShow.time} • {nextShow.city}
+                  </Text>
+                  <Text style={styles.supportText}>{nextShow.venue}</Text>
+                  <View style={styles.inlineActions}>
+                    <ActionButton
+                      label="Tickets"
+                      onPress={() => openLink(nextShow.ticketUrl)}
+                    />
+                    <ActionButton
+                      label="Directions"
+                      onPress={() => openLink(nextShow.mapUrl)}
+                      secondary
+                    />
                   </View>
-                ))}
-              </Card>
-
-              <Card accent>
-                <Image
-                  source={{ uri: nextShow.image }}
-                  style={styles.featureImage}
-                  resizeMode="cover"
-                />
-                <Text style={styles.cardEyebrow}>Next Show</Text>
-                <Text style={styles.cardTitle}>{nextShow.title}</Text>
-                <Text style={styles.cardBody}>
-                  {nextShow.date} • {nextShow.time} • {nextShow.city}
-                </Text>
-                <Text style={styles.supportText}>{nextShow.venue}</Text>
-                <View style={styles.inlineActions}>
-                  <ActionButton
-                    label="Tickets"
-                    onPress={() => openLink(nextShow.ticketUrl)}
-                  />
-                  <ActionButton
-                    label="Directions"
-                    onPress={() => openLink(nextShow.mapUrl)}
-                    secondary
-                  />
-                </View>
-              </Card>
+                </Card>
+              ) : (
+                <Card accent>
+                  <Text style={styles.cardEyebrow}>Shows</Text>
+                  <Text style={styles.cardTitle}>More live dates coming soon</Text>
+                  <Text style={styles.cardBody}>
+                    Check back for the next Durti-Ryce appearance and updated ticket links.
+                  </Text>
+                </Card>
+              )}
 
               <Card>
                 <Image
@@ -719,7 +716,7 @@ export default function App() {
                 title="Be There When the Music Starts"
                 description="Explore upcoming performances, grab tickets, and stay close to the moments where Durti-Ryce comes fully alive on stage."
               />
-              {shows.map((show) => (
+              {visibleShows.map((show) => (
                 <Card key={`${show.title}-${show.date}`}>
                   <Image
                     source={{ uri: show.image }}
@@ -1276,24 +1273,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: 10,
     marginTop: 10,
-  },
-  releaseRow: {
-    paddingTop: 16,
-    marginTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: "#3a2a34",
-    gap: 12,
-  },
-  releaseCopy: {
-    gap: 4,
-  },
-  releaseTitle: {
-    color: "#f7eddf",
-    fontSize: 16,
-    fontWeight: "800",
-  },
-  releaseAction: {
-    alignSelf: "flex-start",
   },
   optionBlock: {
     marginBottom: 14,
